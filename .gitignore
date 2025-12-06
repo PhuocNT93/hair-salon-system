@@ -1,0 +1,31 @@
+# Basics
+.idea/
+.vscode/
+*.log
+*.DS_Store
+
+# Java / Spring Boot
+backend/target/
+backend/mvnw
+backend/mvnw.cmd
+backend/.mvn/
+backend/help.md
+!backend/src/
+
+# Node / Next.js
+node_modules/
+.next/
+out/
+build/
+dist/
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Docker
+.docker/

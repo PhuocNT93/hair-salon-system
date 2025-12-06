@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  # Database
+  db:
+    image: postgres:15-alpine
+    container_name: hairsalon-db
+    environment:
+      POSTGRES_DB: hairsalon
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - salon-network
+
+  # Backend (Spring Boot)
+  backend:
+    build: ./backend
+    container_name: hairsalon-backend
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/hairsalon
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: password
+    depends_on:
+      - db
+    networks:
+      - salon-network
+
+  # Frontend Customer (Next.js)
+  frontend-customer:
+    build: ./frontend-customer
+    container_name: hairsalon-customer
+    ports:
+      - "3000:3000"
+    environment:
+      # In browser, localhost refers to host machine. In server-side calls (SSR), needs network alias.
+      # But since we mostly do client-side fetch in this demo, browser calls localhost:8080.
+      # If using Server Actions or SSR fetch, we might need internal DNS.
+      # Keeping simple for now.
+      NEXT_PUBLIC_API_URL: http://localhost:8080/api
+    networks:
+      - salon-network
+
+  # Frontend Admin (Next.js)
+  frontend-admin:
+    build: ./frontend-admin
+    container_name: hairsalon-admin
+    ports:
+      - "3001:3000" # Map 3001 locally to 3000 in container to avoid conflict
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:8080/api
+    networks:
+      - salon-network
+
+networks:
+  salon-network:
+    driver: bridge
+
+volumes:
+  db-data:

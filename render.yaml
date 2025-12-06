@@ -1,0 +1,55 @@
+services:
+  # Backend
+  - type: web
+    name: hairsalon-backend
+    env: docker
+    dockerContext: ./backend
+    dockerfilePath: ./backend/Dockerfile
+    plan: free
+    envVars:
+      - key: SPRING_DATASOURCE_URL
+        fromDatabase:
+          name: hairsalon-db
+          property: connectionString
+      - key: SPRING_DATASOURCE_USERNAME
+        fromDatabase:
+          name: hairsalon-db
+          property: user
+      - key: SPRING_DATASOURCE_PASSWORD
+        fromDatabase:
+          name: hairsalon-db
+          property: password
+
+  # Frontend Customer
+  - type: web
+    name: hairsalon-customer
+    env: docker
+    dockerContext: ./frontend-customer
+    dockerfilePath: ./frontend-customer/Dockerfile
+    plan: free
+    envVars:
+      - key: NEXT_PUBLIC_API_URL
+        fromService:
+          type: web
+          name: hairsalon-backend
+          property: url
+
+  # Frontend Admin
+  - type: web
+    name: hairsalon-admin
+    env: docker
+    dockerContext: ./frontend-admin
+    dockerfilePath: ./frontend-admin/Dockerfile
+    plan: free
+    envVars:
+      - key: NEXT_PUBLIC_API_URL
+        fromService:
+          type: web
+          name: hairsalon-backend
+          property: url
+
+databases:
+  - name: hairsalon-db
+    plan: free
+    databaseName: hairsalon
+    user: postgres
