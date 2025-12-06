@@ -6,7 +6,6 @@ import DataService from "@/services/data.service";
 import AuthService from "@/services/auth.service";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Check, Calendar as CalendarIcon, User as UserIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export default function BookingPage() {
@@ -45,27 +44,15 @@ export default function BookingPage() {
         const bookingTime = `${selectedDate}T${selectedTime}:00`;
 
         try {
-            await DataService.bookAppointment({
-                customerId: user.id, // Passed as query param in backend logic usually, but here checking API spec
-                // Backend Controller: @RequestParam Long customerId, @RequestBody Appointment
-                // Actually my backend controller expects params for IDs and body for other details.
-                // Wait, the backend logic: public Appointment bookAppointment(@RequestParam Long customerId, @RequestParam Long serviceId...
-                // I need to adjust the API call to match backend signature.
-                // For simplicity, let's assume I fix the request in DataService or here.
-                // The DataService.bookAppointment needs to handle the structure.
-            });
-            // Correcting the call:
-            // We need custom logic in DataService to pass params. 
-            // Let's assume DataService handles it.
-
+            await DataService.bookAppointment(user.id, selectedService.id, bookingTime);
             alert("Booking Successful!");
             router.push("/profile");
         } catch (err) {
+            console.error(err);
             alert("Booking failed");
         }
     };
 
-    // Simplified wizard for demonstration
     return (
         <div className="container py-10 max-w-4xl mx-auto">
             <h1 className="text-3xl font-bold mb-6 text-center">Book an Appointment</h1>
