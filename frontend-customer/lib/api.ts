@@ -1,15 +1,30 @@
-const { token } = JSON.parse(user);
-if (token) {
-    config.headers.Authorization = `Bearer ${token}`; // Remove redundant "Bearer " if backend expects pure token, but usually it's "Bearer <token>"
-    // Backend AuthTokenFilter.java expects "Bearer " prefix in headerAuth.startsWith("Bearer ")
-    // Wait, the backend logic: return headerAuth.substring(7);
-    // So I must send "Bearer <token>"
-    // My code: `Bearer ${token}`. correct.
-}
-        }
-return config;
+import axios from 'axios';
+
+const getBaseUrl = () => {
+    const host = process.env.NEXT_PUBLIC_API_HOST;
+    if (host) return `https://${host}/api`;
+    return process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/api';
+};
+
+const api = axios.create({
+    baseURL: getBaseUrl(),
+    headers: {
+        'Content-Type': 'application/json',
     },
-(error) => Promise.reject(error)
+});
+
+api.interceptors.request.use(
+    (config) => {
+        const user = typeof window !== 'undefined' ? localStorage.getItem('user') : null;
+        if (user) {
+            const { token } = JSON.parse(user);
+            if (token) {
+                config.headers.Authorization = `Bearer ${token}`;
+            }
+        }
+        return config;
+    },
+    (error) => Promise.reject(error)
 );
 
 export default api;
