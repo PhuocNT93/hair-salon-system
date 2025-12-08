@@ -1,0 +1,17 @@
+node_modules
+.next
+.git
+.DS_Store
+*.pem
+.env*
+.env.local
+.vercel
+build
+dist
+out
+coverage
+npm-debug.log*
+yarn-debug.log*
+docker-compose.yml
+README.md
+Dockerfile

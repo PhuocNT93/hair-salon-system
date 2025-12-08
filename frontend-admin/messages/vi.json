@@ -1,0 +1,72 @@
+{
+    "common": {
+        "welcome": "Chào mừng",
+        "logout": "Đăng xuất",
+        "save": "Lưu",
+        "cancel": "Hủy",
+        "edit": "Sửa",
+        "delete": "Xóa",
+        "create": "Tạo mới",
+        "search": "Tìm kiếm",
+        "loading": "Đang tải...",
+        "error": "Lỗi",
+        "success": "Thành công"
+    },
+    "nav": {
+        "dashboard": "Bảng điều khiển",
+        "services": "Dịch vụ",
+        "appointments": "Lịch hẹn",
+        "payments": "Thanh toán",
+        "users": "Người dùng",
+        "staff": "Nhân viên"
+    },
+    "services": {
+        "title": "Dịch vụ",
+        "name": "Tên dịch vụ",
+        "description": "Mô tả",
+        "price": "Giá",
+        "duration": "Thời gian (phút)",
+        "createService": "Tạo dịch vụ",
+        "editService": "Sửa dịch vụ",
+        "deleteConfirm": "Bạn có chắc chắn muốn xóa dịch vụ này?",
+        "nameEn": "Tên (Tiếng Anh)",
+        "nameVi": "Tên (Tiếng Việt)",
+        "nameKo": "Tên (Tiếng Hàn)",
+        "nameJa": "Tên (Tiếng Nhật)",
+        "descriptionEn": "Mô tả (Tiếng Anh)",
+        "descriptionVi": "Mô tả (Tiếng Việt)",
+        "descriptionKo": "Mô tả (Tiếng Hàn)",
+        "descriptionJa": "Mô tả (Tiếng Nhật)"
+    },
+    "appointments": {
+        "title": "Lịch hẹn",
+        "customer": "Khách hàng",
+        "service": "Dịch vụ",
+        "staff": "Nhân viên",
+        "time": "Thời gian hẹn",
+        "status": "Trạng thái",
+        "createAppointment": "Tạo lịch hẹn"
+    },
+    "payments": {
+        "title": "Thanh toán",
+        "amount": "Số tiền",
+        "method": "Phương thức thanh toán",
+        "status": "Trạng thái",
+        "transactionId": "Mã giao dịch"
+    },
+    "users": {
+        "title": "Người dùng",
+        "username": "Tên đăng nhập",
+        "email": "Email",
+        "fullName": "Họ và tên",
+        "phone": "Số điện thoại",
+        "role": "Vai trò",
+        "createStaff": "Tạo nhân viên"
+    },
+    "auth": {
+        "login": "Đăng nhập",
+        "username": "Tên đăng nhập",
+        "password": "Mật khẩu",
+        "unauthorizedAccess": "Truy cập không được phép"
+    }
+}

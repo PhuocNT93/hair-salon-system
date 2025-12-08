@@ -1,0 +1,54 @@
+{
+    "common": {
+        "welcome": "Welcome",
+        "login": "Login",
+        "register": "Register",
+        "logout": "Logout",
+        "save": "Save",
+        "cancel": "Cancel",
+        "loading": "Loading...",
+        "error": "Error",
+        "success": "Success",
+        "bookNow": "Book Now",
+        "myAppointments": "My Appointments"
+    },
+    "nav": {
+        "home": "Home",
+        "services": "Services",
+        "appointments": "My Appointments",
+        "profile": "Profile"
+    },
+    "services": {
+        "title": "Our Services",
+        "description": "Description",
+        "price": "Price",
+        "duration": "Duration",
+        "selectService": "Select Service"
+    },
+    "appointments": {
+        "title": "My Appointments",
+        "service": "Service",
+        "time": "Appointment Time",
+        "status": "Status",
+        "noAppointments": "You have no appointments yet",
+        "bookAppointment": "Book Appointment",
+        "selectDate": "Select Date and Time"
+    },
+    "auth": {
+        "login": "Login",
+        "register": "Register",
+        "username": "Username",
+        "email": "Email",
+        "password": "Password",
+        "fullName": "Full Name",
+        "phone": "Phone",
+        "alreadyHaveAccount": "Already have an account?",
+        "dontHaveAccount": "Don't have an account?"
+    },
+    "status": {
+        "pending": "Pending",
+        "confirmed": "Confirmed",
+        "completed": "Completed",
+        "cancelled": "Cancelled"
+    }
+}

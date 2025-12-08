@@ -1,0 +1,54 @@
+{
+    "common": {
+        "welcome": "ようこそ",
+        "login": "ログイン",
+        "register": "登録",
+        "logout": "ログアウト",
+        "save": "保存",
+        "cancel": "キャンセル",
+        "loading": "読み込み中...",
+        "error": "エラー",
+        "success": "成功",
+        "bookNow": "今すぐ予約",
+        "myAppointments": "マイ予約"
+    },
+    "nav": {
+        "home": "ホーム",
+        "services": "サービス",
+        "appointments": "マイ予約",
+        "profile": "プロフィール"
+    },
+    "services": {
+        "title": "サービス",
+        "description": "説明",
+        "price": "価格",
+        "duration": "所要時間",
+        "selectService": "サービスを選択"
+    },
+    "appointments": {
+        "title": "マイ予約",
+        "service": "サービス",
+        "time": "予約時間",
+        "status": "ステータス",
+        "noAppointments": "予約がありません",
+        "bookAppointment": "予約する",
+        "selectDate": "日時を選択"
+    },
+    "auth": {
+        "login": "ログイン",
+        "register": "登録",
+        "username": "ユーザー名",
+        "email": "メール",
+        "password": "パスワード",
+        "fullName": "フルネーム",
+        "phone": "電話番号",
+        "alreadyHaveAccount": "すでにアカウントをお持ちですか？",
+        "dontHaveAccount": "アカウントをお持ちでないですか？"
+    },
+    "status": {
+        "pending": "保留中",
+        "confirmed": "確認済み",
+        "completed": "完了",
+        "cancelled": "キャンセル済み"
+    }
+}

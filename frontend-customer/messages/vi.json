@@ -1,0 +1,54 @@
+{
+    "common": {
+        "welcome": "Chào mừng",
+        "login": "Đăng nhập",
+        "register": "Đăng ký",
+        "logout": "Đăng xuất",
+        "save": "Lưu",
+        "cancel": "Hủy",
+        "loading": "Đang tải...",
+        "error": "Lỗi",
+        "success": "Thành công",
+        "bookNow": "Đặt lịch ngay",
+        "myAppointments": "Lịch hẹn của tôi"
+    },
+    "nav": {
+        "home": "Trang chủ",
+        "services": "Dịch vụ",
+        "appointments": "Lịch hẹn của tôi",
+        "profile": "Hồ sơ"
+    },
+    "services": {
+        "title": "Dịch vụ của chúng tôi",
+        "description": "Mô tả",
+        "price": "Giá",
+        "duration": "Thời gian",
+        "selectService": "Chọn dịch vụ"
+    },
+    "appointments": {
+        "title": "Lịch hẹn của tôi",
+        "service": "Dịch vụ",
+        "time": "Thời gian hẹn",
+        "status": "Trạng thái",
+        "noAppointments": "Bạn chưa có lịch hẹn nào",
+        "bookAppointment": "Đặt lịch hẹn",
+        "selectDate": "Chọn ngày và giờ"
+    },
+    "auth": {
+        "login": "Đăng nhập",
+        "register": "Đăng ký",
+        "username": "Tên đăng nhập",
+        "email": "Email",
+        "password": "Mật khẩu",
+        "fullName": "Họ và tên",
+        "phone": "Số điện thoại",
+        "alreadyHaveAccount": "Đã có tài khoản?",
+        "dontHaveAccount": "Chưa có tài khoản?"
+    },
+    "status": {
+        "pending": "Chờ xử lý",
+        "confirmed": "Đã xác nhận",
+        "completed": "Hoàn thành",
+        "cancelled": "Đã hủy"
+    }
+}

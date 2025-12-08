@@ -1,0 +1,54 @@
+{
+    "common": {
+        "welcome": "환영합니다",
+        "login": "로그인",
+        "register": "회원가입",
+        "logout": "로그아웃",
+        "save": "저장",
+        "cancel": "취소",
+        "loading": "로딩 중...",
+        "error": "오류",
+        "success": "성공",
+        "bookNow": "지금 예약",
+        "myAppointments": "내 예약"
+    },
+    "nav": {
+        "home": "홈",
+        "services": "서비스",
+        "appointments": "내 예약",
+        "profile": "프로필"
+    },
+    "services": {
+        "title": "서비스",
+        "description": "설명",
+        "price": "가격",
+        "duration": "소요 시간",
+        "selectService": "서비스 선택"
+    },
+    "appointments": {
+        "title": "내 예약",
+        "service": "서비스",
+        "time": "예약 시간",
+        "status": "상태",
+        "noAppointments": "예약이 없습니다",
+        "bookAppointment": "예약하기",
+        "selectDate": "날짜 및 시간 선택"
+    },
+    "auth": {
+        "login": "로그인",
+        "register": "회원가입",
+        "username": "사용자 이름",
+        "email": "이메일",
+        "password": "비밀번호",
+        "fullName": "전체 이름",
+        "phone": "전화번호",
+        "alreadyHaveAccount": "이미 계정이 있으신가요?",
+        "dontHaveAccount": "계정이 없으신가요?"
+    },
+    "status": {
+        "pending": "대기 중",
+        "confirmed": "확인됨",
+        "completed": "완료됨",
+        "cancelled": "취소됨"
+    }
+}

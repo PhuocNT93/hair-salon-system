@@ -1,0 +1,72 @@
+{
+    "common": {
+        "welcome": "ようこそ",
+        "logout": "ログアウト",
+        "save": "保存",
+        "cancel": "キャンセル",
+        "edit": "編集",
+        "delete": "削除",
+        "create": "作成",
+        "search": "検索",
+        "loading": "読み込み中...",
+        "error": "エラー",
+        "success": "成功"
+    },
+    "nav": {
+        "dashboard": "ダッシュボード",
+        "services": "サービス",
+        "appointments": "予約",
+        "payments": "支払い",
+        "users": "ユーザー",
+        "staff": "スタッフ"
+    },
+    "services": {
+        "title": "サービス",
+        "name": "サービス名",
+        "description": "説明",
+        "price": "価格",
+        "duration": "所要時間（分）",
+        "createService": "サービス作成",
+        "editService": "サービス編集",
+        "deleteConfirm": "このサービスを削除してもよろしいですか？",
+        "nameEn": "名前（英語）",
+        "nameVi": "名前（ベトナム語）",
+        "nameKo": "名前（韓国語）",
+        "nameJa": "名前（日本語）",
+        "descriptionEn": "説明（英語）",
+        "descriptionVi": "説明（ベトナム語）",
+        "descriptionKo": "説明（韓国語）",
+        "descriptionJa": "説明（日本語）"
+    },
+    "appointments": {
+        "title": "予約",
+        "customer": "顧客",
+        "service": "サービス",
+        "staff": "スタッフ",
+        "time": "予約時間",
+        "status": "ステータス",
+        "createAppointment": "予約作成"
+    },
+    "payments": {
+        "title": "支払い",
+        "amount": "金額",
+        "method": "支払い方法",
+        "status": "ステータス",
+        "transactionId": "取引ID"
+    },
+    "users": {
+        "title": "ユーザー",
+        "username": "ユーザー名",
+        "email": "メール",
+        "fullName": "フルネーム",
+        "phone": "電話番号",
+        "role": "役割",
+        "createStaff": "スタッフ作成"
+    },
+    "auth": {
+        "login": "ログイン",
+        "username": "ユーザー名",
+        "password": "パスワード",
+        "unauthorizedAccess": "アクセス権限がありません"
+    }
+}
