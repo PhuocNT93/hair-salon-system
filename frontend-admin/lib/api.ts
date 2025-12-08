@@ -22,6 +22,15 @@ api.interceptors.request.use(
                 config.headers.Authorization = `Bearer ${token}`;
             }
         }
+
+        // Add Accept-Language header based on user's selected locale
+        const locale = typeof window !== 'undefined' ? localStorage.getItem('locale') : null;
+        if (locale) {
+            config.headers['Accept-Language'] = locale;
+        } else {
+            config.headers['Accept-Language'] = 'en'; // Default to English
+        }
+
         return config;
     },
     (error) => Promise.reject(error)

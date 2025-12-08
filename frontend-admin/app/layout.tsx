@@ -1,5 +1,7 @@
 import { redirect } from 'next/navigation';
 
+import ThemeRegistry from "@/components/ThemeRegistry/ThemeRegistry";
+
 export default function RootLayout({
   children,
 }: {
@@ -7,7 +9,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="font-sans antialiased">{children}</body>
+      <body className="font-sans antialiased">
+        <ThemeRegistry>
+          {children}
+        </ThemeRegistry>
+      </body>
     </html>
   );
 }

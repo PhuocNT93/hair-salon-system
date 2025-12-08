@@ -36,7 +36,7 @@ services:
     build: ./frontend-customer
     container_name: hairsalon-customer
     ports:
-      - "3000:3000"
+      - "3002:3002"
     environment:
       # In browser, localhost refers to host machine. In server-side calls (SSR), needs network alias.
       # But since we mostly do client-side fetch in this demo, browser calls localhost:8080.

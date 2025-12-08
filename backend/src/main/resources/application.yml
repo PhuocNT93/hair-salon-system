@@ -1,8 +1,11 @@
+server:
+  port: ${PORT:8080}
+
 spring:
   application:
     name: hair-salon-backend
   datasource:
-    url: jdbc:postgresql://localhost:5432/hairsalon
+    url: jdbc:${RENDER_DB_CONNECTION_STRING:postgresql://localhost:5432/hairsalon}
     username: postgres
     password: password
     driver-class-name: org.postgresql.Driver

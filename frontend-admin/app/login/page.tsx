@@ -3,60 +3,163 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import AuthService from "@/services/auth.service";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import {
+    Box,
+    Button,
+    Card,
+    CardContent,
+    Container,
+    TextField,
+    Typography,
+    Alert,
+    CircularProgress,
+    InputAdornment,
+    IconButton
+} from "@mui/material";
+import { Visibility, VisibilityOff, LockOutlined } from "@mui/icons-material";
 
 export default function LoginPage() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
     const router = useRouter();
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         setError("");
+        setLoading(true);
         try {
             await AuthService.login(username, password);
             router.push("/dashboard");
         } catch (err: any) {
-            setError("Failed to login or unauthorized.");
+            setError("Invalid credentials or unauthorized access.");
+        } finally {
+            setLoading(false);
         }
     };
 
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
+
     return (
-        <div className="flex min-h-screen items-center justify-center bg-gray-100">
-            <Card className="w-full max-w-md">
-                <CardHeader>
-                    <CardTitle className="text-2xl text-center">Admin Access</CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <form onSubmit={handleLogin} className="space-y-4">
-                        <div className="space-y-2">
-                            <Label htmlFor="username">Username</Label>
-                            <Input
+        <Box
+            sx={{
+                minHeight: '100vh',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                background: 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)', // Premium dark gradient
+                p: 2
+            }}
+        >
+            <Container maxWidth="xs">
+                <Card
+                    elevation={10}
+                    sx={{
+                        borderRadius: 4,
+                        backdropFilter: 'blur(10px)',
+                        backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                    }}
+                >
+                    <CardContent sx={{ p: 4 }}>
+                        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mb: 3 }}>
+                            <Box
+                                sx={{
+                                    m: 1,
+                                    bgcolor: 'primary.main',
+                                    borderRadius: '50%',
+                                    p: 1.5,
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    boxShadow: '0 4px 20px rgba(0,0,0,0.1)'
+                                }}
+                            >
+                                <LockOutlined sx={{ color: 'white', fontSize: 28 }} />
+                            </Box>
+                            <Typography component="h1" variant="h5" sx={{ fontWeight: 700, color: '#1e293b' }}>
+                                Admin Portal
+                            </Typography>
+                            <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+                                Sign in to manage your salon
+                            </Typography>
+                        </Box>
+
+                        <form onSubmit={handleLogin}>
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
                                 id="username"
+                                label="Username"
+                                name="username"
+                                autoComplete="username"
+                                autoFocus
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
-                                required
+                                sx={{ mb: 2 }}
                             />
-                        </div>
-                        <div className="space-y-2">
-                            <Label htmlFor="password">Password</Label>
-                            <Input
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                name="password"
+                                label="Password"
+                                type={showPassword ? 'text' : 'password'}
                                 id="password"
-                                type="password"
+                                autoComplete="current-password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                required
+                                InputProps={{
+                                    endAdornment: (
+                                        <InputAdornment position="end">
+                                            <IconButton
+                                                aria-label="toggle password visibility"
+                                                onClick={handleClickShowPassword}
+                                                edge="end"
+                                            >
+                                                {showPassword ? <VisibilityOff /> : <Visibility />}
+                                            </IconButton>
+                                        </InputAdornment>
+                                    ),
+                                }}
+                                sx={{ mb: 3 }}
                             />
-                        </div>
-                        {error && <p className="text-red-500 text-sm">{error}</p>}
-                        <Button type="submit" className="w-full">Login to Dashboard</Button>
-                    </form>
-                </CardContent>
-            </Card>
-        </div>
+
+                            {error && (
+                                <Alert severity="error" sx={{ mb: 2, borderRadius: 2 }}>
+                                    {error}
+                                </Alert>
+                            )}
+
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                size="large"
+                                disabled={loading}
+                                sx={{
+                                    py: 1.5,
+                                    borderRadius: 2,
+                                    textTransform: 'none',
+                                    fontSize: '1rem',
+                                    fontWeight: 600,
+                                    boxShadow: '0 4px 12px rgba(37, 99, 235, 0.3)',
+                                    '&:hover': {
+                                        boxShadow: '0 6px 16px rgba(37, 99, 235, 0.4)',
+                                    }
+                                }}
+                            >
+                                {loading ? <CircularProgress size={24} color="inherit" /> : "Sign In"}
+                            </Button>
+                        </form>
+                    </CardContent>
+                </Card>
+                <Typography variant="body2" color="white" align="center" sx={{ mt: 4, opacity: 0.7 }}>
+                    © {new Date().getFullYear()} Hair Salon Management System
+                </Typography>
+            </Container>
+        </Box>
     );
 }

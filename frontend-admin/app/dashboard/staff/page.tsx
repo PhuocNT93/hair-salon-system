@@ -1,73 +1,204 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import api from "@/lib/api";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import {
+    Box,
+    Button,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogActions,
+    TextField,
+    Typography
+} from "@mui/material";
+import { DataGrid, GridColDef, GridActionsCellItem } from "@mui/x-data-grid";
+import { Add, Edit } from "@mui/icons-material";
+import UserService, { User } from "@/services/user.service";
 
 export default function StaffPage() {
-    const [staff, setStaff] = useState<any[]>([]);
-    // Mock user list endpoint because backend only has getAllUsers (which returns all). 
-    // We will filter client side or assume backend improvement.
+    const [staff, setStaff] = useState<User[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [openDialog, setOpenDialog] = useState(false);
+    const [editingStaff, setEditingStaff] = useState<User | null>(null);
+    const [formData, setFormData] = useState({
+        username: "",
+        email: "",
+        password: "",
+        fullName: "",
+        phone: ""
+    });
 
     useEffect(() => {
-        api.get("/users").then((res) => {
-            setStaff(res.data.filter((u: any) => u.role === 'STAFF'));
-        });
+        loadStaff();
     }, []);
 
-    // Simplified creation (username/password usually needed separate registration flow or admin created)
-    // Using simple placeholder form
-    const [isCreating, setIsCreating] = useState(false);
-    const [newStaff, setNewStaff] = useState({ username: "", password: "", fullName: "", email: "" });
-
-    const handleCreate = async (e: React.FormEvent) => {
-        e.preventDefault();
-        await api.post("/users/staff", newStaff); // Endpoint created in Step 74
-        setIsCreating(false);
-        // Refresh
-        api.get("/users").then((res) => setStaff(res.data.filter((u: any) => u.role === 'STAFF')));
+    const loadStaff = async () => {
+        try {
+            const users = await UserService.getAllUsers();
+            setStaff(users.filter(u => u.role === "STAFF"));
+        } catch (error) {
+            console.error("Failed to load staff", error);
+        } finally {
+            setLoading(false);
+        }
     };
 
+    const handleOpenDialog = (staffMember?: User) => {
+        if (staffMember) {
+            setEditingStaff(staffMember);
+            setFormData({
+                username: staffMember.username,
+                email: staffMember.email,
+                password: "",
+                fullName: staffMember.fullName,
+                phone: staffMember.phone || ""
+            });
+        } else {
+            setEditingStaff(null);
+            setFormData({ username: "", email: "", password: "", fullName: "", phone: "" });
+        }
+        setOpenDialog(true);
+    };
+
+    const handleCloseDialog = () => {
+        setOpenDialog(false);
+        setEditingStaff(null);
+        setFormData({ username: "", email: "", password: "", fullName: "", phone: "" });
+    };
+
+    const handleSave = async () => {
+        try {
+            if (editingStaff) {
+                await UserService.updateUser(editingStaff.id, {
+                    fullName: formData.fullName,
+                    phone: formData.phone,
+                    email: formData.email
+                });
+            } else {
+                await UserService.createStaff({
+                    username: formData.username,
+                    email: formData.email,
+                    passwordHash: formData.password,
+                    fullName: formData.fullName,
+                    phone: formData.phone
+                });
+            }
+
+            handleCloseDialog();
+            loadStaff();
+        } catch (error) {
+            console.error("Failed to save staff", error);
+            alert("Failed to save staff member");
+        }
+    };
+
+    const columns: GridColDef[] = [
+        { field: "id", headerName: "ID", width: 70 },
+        { field: "username", headerName: "Username", flex: 1, minWidth: 150 },
+        { field: "fullName", headerName: "Full Name", flex: 1, minWidth: 200 },
+        { field: "email", headerName: "Email", flex: 1, minWidth: 200 },
+        { field: "phone", headerName: "Phone", width: 150 },
+        {
+            field: "actions",
+            type: "actions",
+            headerName: "Actions",
+            width: 80,
+            getActions: (params) => [
+                <GridActionsCellItem
+                    key="edit"
+                    icon={<Edit />}
+                    label="Edit"
+                    onClick={() => handleOpenDialog(params.row)}
+                />
+            ]
+        }
+    ];
+
     return (
-        <div className="space-y-6">
-            <div className="flex justify-between items-center">
-                <h1 className="text-3xl font-bold">Staff Management</h1>
-                <Button onClick={() => setIsCreating(!isCreating)}>Add Staff</Button>
-            </div>
+        <Box sx={{ height: "calc(100vh - 200px)", width: "100%" }}>
+            <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 3 }}>
+                <Typography variant="h4" component="h1" fontWeight="bold">
+                    Staff Management
+                </Typography>
+                <Button
+                    variant="contained"
+                    startIcon={<Add />}
+                    onClick={() => handleOpenDialog()}
+                >
+                    Add Staff
+                </Button>
+            </Box>
 
-            {isCreating && (
-                <Card>
-                    <CardHeader><CardTitle>New Staff Member</CardTitle></CardHeader>
-                    <CardContent>
-                        <form onSubmit={handleCreate} className="space-y-4">
-                            <div className="grid grid-cols-2 gap-4">
-                                <div><Label>Username</Label><Input value={newStaff.username} onChange={e => setNewStaff({ ...newStaff, username: e.target.value })} required /></div>
-                                <div><Label>Email</Label><Input type="email" value={newStaff.email} onChange={e => setNewStaff({ ...newStaff, email: e.target.value })} required /></div>
-                                <div><Label>Full Name</Label><Input value={newStaff.fullName} onChange={e => setNewStaff({ ...newStaff, fullName: e.target.value })} required /></div>
-                                <div><Label>Password</Label><Input type="password" value={newStaff.password} onChange={e => setNewStaff({ ...newStaff, password: e.target.value })} required /></div>
-                            </div>
-                            <Button type="submit">Create Account</Button>
-                        </form>
-                    </CardContent>
-                </Card>
-            )}
+            <DataGrid
+                rows={staff}
+                columns={columns}
+                loading={loading}
+                pageSizeOptions={[10, 25, 50]}
+                initialState={{
+                    pagination: { paginationModel: { pageSize: 10 } }
+                }}
+                disableRowSelectionOnClick
+                sx={{
+                    bgcolor: "background.paper",
+                    borderRadius: 2,
+                    "& .MuiDataGrid-cell:focus": {
+                        outline: "none"
+                    }
+                }}
+            />
 
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                {staff.map(s => (
-                    <Card key={s.id}>
-                        <CardHeader>
-                            <CardTitle>{s.fullName}</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <p>{s.email}</p>
-                            <p className="text-sm text-gray-500">@{s.username}</p>
-                        </CardContent>
-                    </Card>
-                ))}
-            </div>
-        </div>
+            <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth="sm" fullWidth>
+                <DialogTitle>{editingStaff ? "Edit Staff" : "Add New Staff"}</DialogTitle>
+                <DialogContent>
+                    <Box sx={{ display: "flex", flexDirection: "column", gap: 2, pt: 2 }}>
+                        <TextField
+                            label="Username"
+                            value={formData.username}
+                            onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+                            fullWidth
+                            required
+                            disabled={!!editingStaff}
+                        />
+                        <TextField
+                            label="Email"
+                            type="email"
+                            value={formData.email}
+                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                            fullWidth
+                            required
+                        />
+                        {!editingStaff && (
+                            <TextField
+                                label="Password"
+                                type="password"
+                                value={formData.password}
+                                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                                fullWidth
+                                required
+                            />
+                        )}
+                        <TextField
+                            label="Full Name"
+                            value={formData.fullName}
+                            onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                            fullWidth
+                            required
+                        />
+                        <TextField
+                            label="Phone"
+                            value={formData.phone}
+                            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                            fullWidth
+                        />
+                    </Box>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleCloseDialog}>Cancel</Button>
+                    <Button onClick={handleSave} variant="contained">
+                        {editingStaff ? "Update" : "Create"}
+                    </Button>
+                </DialogActions>
+            </Dialog>
+        </Box>
     );
 }

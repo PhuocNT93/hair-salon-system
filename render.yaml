@@ -7,7 +7,7 @@ services:
     dockerfilePath: ./backend/Dockerfile
     plan: free
     envVars:
-      - key: SPRING_DATASOURCE_URL
+      - key: RENDER_DB_CONNECTION_STRING
         fromDatabase:
           name: hairsalon-db
           property: connectionString

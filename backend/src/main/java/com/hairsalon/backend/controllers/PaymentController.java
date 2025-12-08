@@ -4,7 +4,6 @@ import com.hairsalon.backend.model.Payment;
 import com.hairsalon.backend.model.Payment.PaymentStatus;
 import com.hairsalon.backend.services.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,12 +24,12 @@ public class PaymentController {
 
     @PutMapping("/{id}/status")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public Payment updatePaymentStatus(@PathVariable Long id, 
-                                       @RequestParam PaymentStatus status, 
-                                       @RequestParam(required = false) String transactionId) {
+    public Payment updatePaymentStatus(@PathVariable Long id,
+            @RequestParam PaymentStatus status,
+            @RequestParam(required = false) String transactionId) {
         return paymentService.updatePaymentStatus(id, status, transactionId);
     }
-    
+
     @GetMapping("/my-history")
     @PreAuthorize("hasAuthority('CUSTOMER')")
     public List<Payment> getMyPayments(@RequestParam Long userId) {

@@ -1,71 +1,242 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import api from "@/lib/api";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-
-interface Payment {
-    id: number;
-    amount: number;
-    paymentMethod: string;
-    status: string;
-    transactionId: string;
-    appointment: {
-        customer: { fullName: string };
-        service: { name: string };
-    };
-    createdAt: string;
-}
+import {
+    Box,
+    Button,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogActions,
+    TextField,
+    Typography,
+    Select,
+    MenuItem,
+    FormControl,
+    InputLabel,
+    Chip
+} from "@mui/material";
+import { DataGrid, GridColDef, GridActionsCellItem } from "@mui/x-data-grid";
+import { Add, Edit } from "@mui/icons-material";
+import PaymentService, { Payment } from "@/services/payment.service";
+import AppointmentService from "@/services/appointment.service";
 
 export default function PaymentsPage() {
     const [payments, setPayments] = useState<Payment[]>([]);
+    const [appointments, setAppointments] = useState<any[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [openDialog, setOpenDialog] = useState(false);
+    const [formData, setFormData] = useState({
+        appointmentId: "",
+        amount: "",
+        paymentMethod: "CASH",
+        status: "PENDING"
+    });
 
     useEffect(() => {
-        api.get("/payments").then((res) => setPayments(res.data));
+        loadData();
     }, []);
 
-    const updateStatus = async (id: number, status: string) => {
-        await api.put(`/payments/${id}/status?status=${status}`).then((res) => {
-            setPayments(payments.map(p => p.id === id ? res.data : p));
-        });
+    const loadData = async () => {
+        try {
+            const [pmts, appts] = await Promise.all([
+                PaymentService.getAllPayments(),
+                AppointmentService.getAllAppointments()
+            ]);
+
+            setPayments(pmts);
+            setAppointments(appts);
+        } catch (error) {
+            console.error("Failed to load payments", error);
+        } finally {
+            setLoading(false);
+        }
     };
 
+    const handleOpenDialog = () => {
+        setFormData({ appointmentId: "", amount: "", paymentMethod: "CASH", status: "PENDING" });
+        setOpenDialog(true);
+    };
+
+    const handleCloseDialog = () => {
+        setOpenDialog(false);
+    };
+
+    const handleSave = async () => {
+        try {
+            await PaymentService.createPayment({
+                appointmentId: parseInt(formData.appointmentId),
+                amount: parseFloat(formData.amount),
+                paymentMethod: formData.paymentMethod,
+                status: formData.status
+            });
+
+            handleCloseDialog();
+            loadData();
+        } catch (error) {
+            console.error("Failed to create payment", error);
+            alert("Failed to create payment");
+        }
+    };
+
+    const handleUpdateStatus = async (id: number) => {
+        const newStatus = prompt("Enter new status (PENDING/PAID/REFUNDED):");
+        if (newStatus) {
+            try {
+                await PaymentService.updatePaymentStatus(id, newStatus);
+                loadData();
+            } catch (error) {
+                console.error("Failed to update status", error);
+            }
+        }
+    };
+
+    const columns: GridColDef[] = [
+        { field: "id", headerName: "ID", width: 70 },
+        {
+            field: "appointmentId",
+            headerName: "Appointment",
+            flex: 1,
+            minWidth: 150,
+            valueGetter: (value) => `Appointment #${value}`
+        },
+        {
+            field: "amount",
+            headerName: "Amount",
+            width: 120,
+            valueFormatter: (value) => `$${value}`
+        },
+        { field: "paymentMethod", headerName: "Method", width: 150 },
+        {
+            field: "status",
+            headerName: "Status",
+            width: 130,
+            renderCell: (params) => (
+                <Chip
+                    label={params.value}
+                    color={
+                        params.value === "PAID" ? "success" :
+                            params.value === "REFUNDED" ? "error" :
+                                "warning"
+                    }
+                    size="small"
+                />
+            )
+        },
+        {
+            field: "createdAt",
+            headerName: "Date",
+            width: 180,
+            valueFormatter: (value) => value ? new Date(value).toLocaleString() : "N/A"
+        },
+        { field: "transactionId", headerName: "Transaction ID", flex: 1, minWidth: 150 },
+        {
+            field: "actions",
+            type: "actions",
+            headerName: "Actions",
+            width: 80,
+            getActions: (params) => [
+                <GridActionsCellItem
+                    key="edit"
+                    icon={<Edit />}
+                    label="Update Status"
+                    onClick={() => handleUpdateStatus(params.row.id)}
+                />
+            ]
+        }
+    ];
+
     return (
-        <div className="space-y-6">
-            <h1 className="text-3xl font-bold">Payment Management</h1>
-            <div className="grid gap-4">
-                {payments.length === 0 && <p>No payments recorded.</p>}
-                {payments.map(payment => (
-                    <Card key={payment.id}>
-                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                            <CardTitle className="text-sm font-medium">
-                                Invoice #{payment.id} - {payment.appointment.customer?.fullName}
-                            </CardTitle>
-                            <span className={`text-xs px-2 py-1 rounded font-bold ${payment.status === 'PAID' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}`}>
-                                {payment.status}
-                            </span>
-                        </CardHeader>
-                        <CardContent>
-                            <div className="flex justify-between items-center mt-2">
-                                <div>
-                                    <div className="text-2xl font-bold">${payment.amount}</div>
-                                    <p className="text-xs text-secondary-foreground">
-                                        {payment.paymentMethod} • {payment.appointment.service.name}
-                                    </p>
-                                    <p className="text-xs text-gray-500">{new Date(payment.createdAt).toLocaleString()}</p>
-                                </div>
-                                <div className="space-x-2">
-                                    {payment.status === 'PENDING' && (
-                                        <Button size="sm" onClick={() => updateStatus(payment.id, 'PAID')}>Mark Paid</Button>
-                                    )}
-                                    <Button variant="outline" size="sm">Refund</Button>
-                                </div>
-                            </div>
-                        </CardContent>
-                    </Card>
-                ))}
-            </div>
-        </div>
+        <Box sx={{ height: "calc(100vh - 200px)", width: "100%" }}>
+            <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 3 }}>
+                <Typography variant="h4" component="h1" fontWeight="bold">
+                    Payments Management
+                </Typography>
+                <Button
+                    variant="contained"
+                    startIcon={<Add />}
+                    onClick={handleOpenDialog}
+                >
+                    Add Payment
+                </Button>
+            </Box>
+
+            <DataGrid
+                rows={payments}
+                columns={columns}
+                loading={loading}
+                pageSizeOptions={[10, 25, 50]}
+                initialState={{
+                    pagination: { paginationModel: { pageSize: 10 } }
+                }}
+                disableRowSelectionOnClick
+                sx={{
+                    bgcolor: "background.paper",
+                    borderRadius: 2,
+                    "& .MuiDataGrid-cell:focus": {
+                        outline: "none"
+                    }
+                }}
+            />
+
+            <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth="sm" fullWidth>
+                <DialogTitle>Create New Payment</DialogTitle>
+                <DialogContent>
+                    <Box sx={{ display: "flex", flexDirection: "column", gap: 2, pt: 2 }}>
+                        <FormControl fullWidth required>
+                            <InputLabel>Appointment</InputLabel>
+                            <Select
+                                value={formData.appointmentId}
+                                onChange={(e) => setFormData({ ...formData, appointmentId: e.target.value })}
+                                label="Appointment"
+                            >
+                                {appointments.map(a => (
+                                    <MenuItem key={a.id} value={a.id}>
+                                        Appointment #{a.id} - {new Date(a.appointmentTime).toLocaleDateString()}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                        <TextField
+                            label="Amount ($)"
+                            type="number"
+                            value={formData.amount}
+                            onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
+                            fullWidth
+                            required
+                        />
+                        <FormControl fullWidth required>
+                            <InputLabel>Payment Method</InputLabel>
+                            <Select
+                                value={formData.paymentMethod}
+                                onChange={(e) => setFormData({ ...formData, paymentMethod: e.target.value })}
+                                label="Payment Method"
+                            >
+                                <MenuItem value="CASH">Cash</MenuItem>
+                                <MenuItem value="BANK_TRANSFER">Bank Transfer</MenuItem>
+                                <MenuItem value="VNPAY">VNPay</MenuItem>
+                                <MenuItem value="MOMO">MoMo</MenuItem>
+                            </Select>
+                        </FormControl>
+                        <FormControl fullWidth required>
+                            <InputLabel>Status</InputLabel>
+                            <Select
+                                value={formData.status}
+                                onChange={(e) => setFormData({ ...formData, status: e.target.value })}
+                                label="Status"
+                            >
+                                <MenuItem value="PENDING">Pending</MenuItem>
+                                <MenuItem value="PAID">Paid</MenuItem>
+                                <MenuItem value="REFUNDED">Refunded</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </Box>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleCloseDialog}>Cancel</Button>
+                    <Button onClick={handleSave} variant="contained">Create</Button>
+                </DialogActions>
+            </Dialog>
+        </Box>
     );
 }
