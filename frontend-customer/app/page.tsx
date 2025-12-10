@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from 'react';
+import { useTranslations } from 'next-intl';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
@@ -16,6 +17,26 @@ import Link from 'next/link';
 import { Navbar } from "@/components/layout/navbar";
 
 export default function Home() {
+  const t = useTranslations();
+
+  const services = [
+    {
+      title: t('home.haircutTitle'),
+      icon: ContentCutIcon,
+      desc: t('home.haircutDesc')
+    },
+    {
+      title: t('home.stylingTitle'),
+      icon: FaceIcon,
+      desc: t('home.stylingDesc')
+    },
+    {
+      title: t('home.bookingTitle'),
+      icon: EventAvailableIcon,
+      desc: t('home.bookingDesc')
+    },
+  ];
+
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <Navbar />
@@ -32,11 +53,10 @@ export default function Home() {
         >
           <Container maxWidth="md">
             <Typography variant="h2" component="h1" gutterBottom fontWeight="bold">
-              Elevate Your Style
+              {t('home.heroTitle')}
             </Typography>
             <Typography variant="h5" component="p" gutterBottom sx={{ mb: 4, opacity: 0.9 }}>
-              Experience premium hair care services from top professionals.
-              Modern styles, classic cuts, and everything in between.
+              {t('home.heroDescription')}
             </Typography>
             <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
               <Button
@@ -46,7 +66,7 @@ export default function Home() {
                 size="large"
                 sx={{ bgcolor: 'white', color: 'primary.main', '&:hover': { bgcolor: 'grey.100' } }}
               >
-                Book Appointment
+                {t('home.bookAppointment')}
               </Button>
               <Button
                 component={Link}
@@ -55,7 +75,7 @@ export default function Home() {
                 size="large"
                 sx={{ color: 'white', borderColor: 'white', '&:hover': { borderColor: 'grey.100', bgcolor: 'rgba(255,255,255,0.1)' } }}
               >
-                Client Login
+                {t('home.clientLogin')}
               </Button>
             </Box>
           </Container>
@@ -64,18 +84,14 @@ export default function Home() {
         {/* Services Section */}
         <Container maxWidth="lg" sx={{ py: 8 }}>
           <Typography variant="h3" component="h2" textAlign="center" gutterBottom fontWeight="bold">
-            Our Services
+            {t('home.servicesTitle')}
           </Typography>
           <Typography variant="h6" textAlign="center" color="text.secondary" sx={{ mb: 6 }}>
-            We offer a wide range of services tailored to your needs.
+            {t('home.servicesSubtitle')}
           </Typography>
 
           <Grid container spacing={4}>
-            {[
-              { title: 'Haircut', icon: ContentCutIcon, desc: 'Precision cuts for men and women, tailored to your face shape.' },
-              { title: 'Styling', icon: FaceIcon, desc: 'Blowouts, updos, and event styling to make you shine.' },
-              { title: 'Booking', icon: EventAvailableIcon, desc: 'Easy online scheduling 24/7. Book your slot in seconds.' },
-            ].map((item, index) => (
+            {services.map((item, index) => (
               <Grid size={{ xs: 12, md: 4 }} key={index}>
                 <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', textAlign: 'center', p: 2, transition: '0.3s', '&:hover': { transform: 'translateY(-5px)', boxShadow: 6 } }}>
                   <Box sx={{ display: 'flex', justifyContent: 'center', p: 2 }}>
@@ -102,7 +118,7 @@ export default function Home() {
           <Typography variant="body2" color="text.secondary" align="center">
             {'© '}
             {new Date().getFullYear()}
-            {' StyleCut Salon. All rights reserved.'}
+            {' '}{t('home.footerCopyright')}
           </Typography>
         </Container>
       </Box>

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from 'react';
+import { useTranslations } from 'next-intl';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -14,6 +15,7 @@ import Container from '@mui/material/Container';
 import { Paper } from '@mui/material';
 
 export default function Register() {
+    const t = useTranslations();
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -41,7 +43,7 @@ export default function Register() {
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        Admin Sign up
+                        {t('auth.adminSignUp')}
                     </Typography>
                     <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3, width: '100%' }}>
                         <Grid container spacing={2}>
@@ -52,7 +54,7 @@ export default function Register() {
                                     required
                                     fullWidth
                                     id="username"
-                                    label="Username"
+                                    label={t('auth.username')}
                                     autoFocus
                                 />
                             </Grid>
@@ -61,7 +63,7 @@ export default function Register() {
                                     required
                                     fullWidth
                                     id="email"
-                                    label="Email Address"
+                                    label={t('auth.email')}
                                     name="email"
                                     autoComplete="email"
                                 />
@@ -71,7 +73,7 @@ export default function Register() {
                                     required
                                     fullWidth
                                     name="password"
-                                    label="Password"
+                                    label={t('auth.password')}
                                     type="password"
                                     id="password"
                                     autoComplete="new-password"
@@ -84,12 +86,12 @@ export default function Register() {
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
                         >
-                            Sign Up
+                            {t('auth.signUp')}
                         </Button>
                         <Grid container justifyContent="flex-end">
                             <Grid item>
                                 <Link href="/login" variant="body2">
-                                    Already have an account? Sign in
+                                    {t('auth.alreadyHaveAccount')}
                                 </Link>
                             </Grid>
                         </Grid>

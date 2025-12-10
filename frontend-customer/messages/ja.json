@@ -18,6 +18,21 @@
         "appointments": "マイ予約",
         "profile": "プロフィール"
     },
+    "home": {
+        "heroTitle": "スタイルを格上げ",
+        "heroDescription": "トッププロフェッショナルによるプレミアムヘアケアサービスを体験してください。モダンなスタイル、クラシックなカット、その間のすべて。",
+        "bookAppointment": "予約する",
+        "clientLogin": "クライアントログイン",
+        "servicesTitle": "サービス",
+        "servicesSubtitle": "お客様のニーズに合わせた幅広いサービスを提供しています。",
+        "haircutTitle": "ヘアカット",
+        "haircutDesc": "顔の形に合わせた男性と女性のための精密カット。",
+        "stylingTitle": "スタイリング",
+        "stylingDesc": "ブローアウト、アップスタイル、イベントスタイリングで輝きます。",
+        "bookingTitle": "予約",
+        "bookingDesc": "24時間オンライン予約。数秒で予約できます。",
+        "footerCopyright": "StyleCut Salon. 全著作権所有。"
+    },
     "services": {
         "title": "サービス",
         "description": "説明",

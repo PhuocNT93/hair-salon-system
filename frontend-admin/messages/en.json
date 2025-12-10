@@ -20,6 +20,23 @@
         "users": "Users",
         "staff": "Staff"
     },
+    "dashboard": {
+        "title": "Dashboard Overview",
+        "loadingData": "Loading dashboard data...",
+        "totalRevenue": "Total Revenue",
+        "lifetimeRevenue": "Lifetime revenue",
+        "appointments": "Appointments",
+        "totalBookings": "Total bookings",
+        "customers": "Customers",
+        "registeredAccounts": "Registered accounts",
+        "services": "Services",
+        "availableServices": "Available services",
+        "overview": "Overview",
+        "recentSales": "Recent Sales",
+        "latestTransactions": "Latest {count} transactions.",
+        "noRecentSales": "No recent sales found.",
+        "payment": "Payment"
+    },
     "services": {
         "title": "Services",
         "name": "Service Name",
@@ -65,8 +82,18 @@
     },
     "auth": {
         "login": "Login",
+        "signIn": "Sign In",
+        "signUp": "Sign Up",
         "username": "Username",
         "password": "Password",
-        "unauthorizedAccess": "Unauthorized Access"
+        "email": "Email Address",
+        "unauthorizedAccess": "Unauthorized Access",
+        "adminPortal": "Admin Portal",
+        "adminSignUp": "Admin Sign up",
+        "signInMessage": "Sign in to manage your salon",
+        "invalidCredentials": "Invalid credentials or unauthorized access.",
+        "alreadyHaveAccount": "Already have an account? Sign in",
+        "togglePasswordVisibility": "toggle password visibility",
+        "copyrightText": "Hair Salon Management System"
     }
 }

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import AuthService from "@/services/auth.service";
 import {
     Box,
@@ -19,6 +20,7 @@ import {
 import { Visibility, VisibilityOff, LockOutlined } from "@mui/icons-material";
 
 export default function LoginPage() {
+    const t = useTranslations();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
@@ -34,7 +36,7 @@ export default function LoginPage() {
             await AuthService.login(username, password);
             router.push("/dashboard");
         } catch (err: any) {
-            setError("Invalid credentials or unauthorized access.");
+            setError(t('auth.invalidCredentials'));
         } finally {
             setLoading(false);
         }
@@ -79,10 +81,10 @@ export default function LoginPage() {
                                 <LockOutlined sx={{ color: 'white', fontSize: 28 }} />
                             </Box>
                             <Typography component="h1" variant="h5" sx={{ fontWeight: 700, color: '#1e293b' }}>
-                                Admin Portal
+                                {t('auth.adminPortal')}
                             </Typography>
                             <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-                                Sign in to manage your salon
+                                {t('auth.signInMessage')}
                             </Typography>
                         </Box>
 
@@ -92,7 +94,7 @@ export default function LoginPage() {
                                 required
                                 fullWidth
                                 id="username"
-                                label="Username"
+                                label={t('auth.username')}
                                 name="username"
                                 autoComplete="username"
                                 autoFocus
@@ -105,7 +107,7 @@ export default function LoginPage() {
                                 required
                                 fullWidth
                                 name="password"
-                                label="Password"
+                                label={t('auth.password')}
                                 type={showPassword ? 'text' : 'password'}
                                 id="password"
                                 autoComplete="current-password"
@@ -115,7 +117,7 @@ export default function LoginPage() {
                                     endAdornment: (
                                         <InputAdornment position="end">
                                             <IconButton
-                                                aria-label="toggle password visibility"
+                                                aria-label={t('auth.togglePasswordVisibility')}
                                                 onClick={handleClickShowPassword}
                                                 edge="end"
                                             >
@@ -151,13 +153,13 @@ export default function LoginPage() {
                                     }
                                 }}
                             >
-                                {loading ? <CircularProgress size={24} color="inherit" /> : "Sign In"}
+                                {loading ? <CircularProgress size={24} color="inherit" /> : t('auth.signIn')}
                             </Button>
                         </form>
                     </CardContent>
                 </Card>
                 <Typography variant="body2" color="white" align="center" sx={{ mt: 4, opacity: 0.7 }}>
-                    © {new Date().getFullYear()} Hair Salon Management System
+                    © {new Date().getFullYear()} {t('auth.copyrightText')}
                 </Typography>
             </Container>
         </Box>

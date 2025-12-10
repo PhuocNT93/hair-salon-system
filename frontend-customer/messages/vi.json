@@ -18,6 +18,21 @@
         "appointments": "Lịch hẹn của tôi",
         "profile": "Hồ sơ"
     },
+    "home": {
+        "heroTitle": "Nâng tầm phong cách của bạn",
+        "heroDescription": "Trải nghiệm dịch vụ chăm sóc tóc cao cấp từ các chuyên gia hàng đầu. Kiểu dáng hiện đại, cắt tóc cổ điển và mọi thứ ở giữa.",
+        "bookAppointment": "Đặt lịch hẹn",
+        "clientLogin": "Đăng nhập khách hàng",
+        "servicesTitle": "Dịch vụ của chúng tôi",
+        "servicesSubtitle": "Chúng tôi cung cấp nhiều dịch vụ phù hợp với nhu cầu của bạn.",
+        "haircutTitle": "Cắt tóc",
+        "haircutDesc": "Cắt tóc chính xác cho nam và nữ, phù hợp với khuôn mặt của bạn.",
+        "stylingTitle": "Tạo kiểu",
+        "stylingDesc": "Sấy tóc, búi tóc và tạo kiểu cho sự kiện để bạn tỏa sáng.",
+        "bookingTitle": "Đặt lịch",
+        "bookingDesc": "Lên lịch trực tuyến dễ dàng 24/7. Đặt chỗ của bạn trong vài giây.",
+        "footerCopyright": "StyleCut Salon. Tất cả quyền được bảo lưu."
+    },
     "services": {
         "title": "Dịch vụ của chúng tôi",
         "description": "Mô tả",

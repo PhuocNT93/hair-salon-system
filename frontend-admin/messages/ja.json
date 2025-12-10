@@ -20,6 +20,23 @@
         "users": "ユーザー",
         "staff": "スタッフ"
     },
+    "dashboard": {
+        "title": "ダッシュボード概要",
+        "loadingData": "ダッシュボードデータを読み込み中...",
+        "totalRevenue": "総収益",
+        "lifetimeRevenue": "累計収益",
+        "appointments": "予約",
+        "totalBookings": "総予約数",
+        "customers": "顧客",
+        "registeredAccounts": "登録済みアカウント",
+        "services": "サービス",
+        "availableServices": "利用可能なサービス",
+        "overview": "概要",
+        "recentSales": "最近の売上",
+        "latestTransactions": "最新の{count}件の取引。",
+        "noRecentSales": "最近の売上が見つかりません。",
+        "payment": "支払い"
+    },
     "services": {
         "title": "サービス",
         "name": "サービス名",
@@ -65,8 +82,18 @@
     },
     "auth": {
         "login": "ログイン",
+        "signIn": "サインイン",
+        "signUp": "サインアップ",
         "username": "ユーザー名",
         "password": "パスワード",
-        "unauthorizedAccess": "アクセス権限がありません"
+        "email": "メールアドレス",
+        "unauthorizedAccess": "アクセス権限がありません",
+        "adminPortal": "管理者ポータル",
+        "adminSignUp": "管理者サインアップ",
+        "signInMessage": "サロン管理のためにサインインしてください",
+        "invalidCredentials": "無効な資格情報またはアクセス権限がありません。",
+        "alreadyHaveAccount": "すでにアカウントをお持ちですか？サインイン",
+        "togglePasswordVisibility": "パスワードの表示/非表示",
+        "copyrightText": "ヘアサロン管理システム"
     }
 }

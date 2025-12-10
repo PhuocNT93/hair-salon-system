@@ -20,6 +20,23 @@
         "users": "사용자",
         "staff": "직원"
     },
+    "dashboard": {
+        "title": "대시보드 개요",
+        "loadingData": "대시보드 데이터 로딩 중...",
+        "totalRevenue": "총 수익",
+        "lifetimeRevenue": "누적 수익",
+        "appointments": "예약",
+        "totalBookings": "총 예약 수",
+        "customers": "고객",
+        "registeredAccounts": "등록된 계정",
+        "services": "서비스",
+        "availableServices": "이용 가능한 서비스",
+        "overview": "개요",
+        "recentSales": "최근 판매",
+        "latestTransactions": "최근 {count}개 거래.",
+        "noRecentSales": "최근 판매 내역이 없습니다.",
+        "payment": "결제"
+    },
     "services": {
         "title": "서비스",
         "name": "서비스 이름",
@@ -65,8 +82,18 @@
     },
     "auth": {
         "login": "로그인",
+        "signIn": "로그인",
+        "signUp": "회원가입",
         "username": "사용자 이름",
         "password": "비밀번호",
-        "unauthorizedAccess": "권한이 없습니다"
+        "email": "이메일 주소",
+        "unauthorizedAccess": "권한이 없습니다",
+        "adminPortal": "관리자 포털",
+        "adminSignUp": "관리자 회원가입",
+        "signInMessage": "살롱 관리를 위해 로그인하세요",
+        "invalidCredentials": "잘못된 자격 증명이거나 권한이 없습니다.",
+        "alreadyHaveAccount": "이미 계정이 있으신가요? 로그인",
+        "togglePasswordVisibility": "비밀번호 표시/숨기기",
+        "copyrightText": "헤어 살롱 관리 시스템"
     }
 }

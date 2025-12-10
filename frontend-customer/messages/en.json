@@ -18,6 +18,21 @@
         "appointments": "My Appointments",
         "profile": "Profile"
     },
+    "home": {
+        "heroTitle": "Elevate Your Style",
+        "heroDescription": "Experience premium hair care services from top professionals. Modern styles, classic cuts, and everything in between.",
+        "bookAppointment": "Book Appointment",
+        "clientLogin": "Client Login",
+        "servicesTitle": "Our Services",
+        "servicesSubtitle": "We offer a wide range of services tailored to your needs.",
+        "haircutTitle": "Haircut",
+        "haircutDesc": "Precision cuts for men and women, tailored to your face shape.",
+        "stylingTitle": "Styling",
+        "stylingDesc": "Blowouts, updos, and event styling to make you shine.",
+        "bookingTitle": "Booking",
+        "bookingDesc": "Easy online scheduling 24/7. Book your slot in seconds.",
+        "footerCopyright": "StyleCut Salon. All rights reserved."
+    },
     "services": {
         "title": "Our Services",
         "description": "Description",

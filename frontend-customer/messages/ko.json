@@ -18,6 +18,21 @@
         "appointments": "내 예약",
         "profile": "프로필"
     },
+    "home": {
+        "heroTitle": "스타일을 한 단계 높이세요",
+        "heroDescription": "최고의 전문가로부터 프리미엄 헤어 케어 서비스를 경험하세요. 현대적인 스타일, 클래식 컷 등 모든 것을 제공합니다.",
+        "bookAppointment": "예약하기",
+        "clientLogin": "고객 로그인",
+        "servicesTitle": "서비스",
+        "servicesSubtitle": "귀하의 필요에 맞는 다양한 서비스를 제공합니다.",
+        "haircutTitle": "헤어컷",
+        "haircutDesc": "얼굴형에 맞춘 남성과 여성을 위한 정밀 컷.",
+        "stylingTitle": "스타일링",
+        "stylingDesc": "블로우아웃, 업스타일, 이벤트 스타일링으로 빛나게 합니다.",
+        "bookingTitle": "예약",
+        "bookingDesc": "24시간 온라인 예약. 몇 초 만에 예약하세요.",
+        "footerCopyright": "StyleCut Salon. 모든 권리 보유."
+    },
     "services": {
         "title": "서비스",
         "description": "설명",

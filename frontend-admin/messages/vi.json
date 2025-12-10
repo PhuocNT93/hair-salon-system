@@ -20,6 +20,23 @@
         "users": "Người dùng",
         "staff": "Nhân viên"
     },
+    "dashboard": {
+        "title": "Tổng quan bảng điều khiển",
+        "loadingData": "Đang tải dữ liệu bảng điều khiển...",
+        "totalRevenue": "Tổng doanh thu",
+        "lifetimeRevenue": "Doanh thu tích lũy",
+        "appointments": "Lịch hẹn",
+        "totalBookings": "Tổng số đặt chỗ",
+        "customers": "Khách hàng",
+        "registeredAccounts": "Tài khoản đã đăng ký",
+        "services": "Dịch vụ",
+        "availableServices": "Dịch vụ có sẵn",
+        "overview": "Tổng quan",
+        "recentSales": "Giao dịch gần đây",
+        "latestTransactions": "{count} giao dịch mới nhất.",
+        "noRecentSales": "Không tìm thấy giao dịch gần đây.",
+        "payment": "Thanh toán"
+    },
     "services": {
         "title": "Dịch vụ",
         "name": "Tên dịch vụ",
@@ -65,8 +82,18 @@
     },
     "auth": {
         "login": "Đăng nhập",
+        "signIn": "Đăng nhập",
+        "signUp": "Đăng ký",
         "username": "Tên đăng nhập",
         "password": "Mật khẩu",
-        "unauthorizedAccess": "Truy cập không được phép"
+        "email": "Địa chỉ Email",
+        "unauthorizedAccess": "Truy cập không được phép",
+        "adminPortal": "Cổng quản trị",
+        "adminSignUp": "Đăng ký quản trị viên",
+        "signInMessage": "Đăng nhập để quản lý salon của bạn",
+        "invalidCredentials": "Thông tin đăng nhập không hợp lệ hoặc truy cập không được phép.",
+        "alreadyHaveAccount": "Đã có tài khoản? Đăng nhập",
+        "togglePasswordVisibility": "hiện/ẩn mật khẩu",
+        "copyrightText": "Hệ thống quản lý salon tóc"
     }
 }

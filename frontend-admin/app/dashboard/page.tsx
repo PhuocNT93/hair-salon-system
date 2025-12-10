@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { Overview } from "@/components/overview";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Users, DollarSign, CreditCard, Activity, Calendar } from "lucide-react";
@@ -10,6 +11,7 @@ import UserService, { User } from "@/services/user.service";
 import ServiceService, { Service } from "@/services/service.service";
 
 export default function DashboardPage() {
+    const t = useTranslations();
     const [stats, setStats] = useState({
         totalRevenue: 0,
         totalAppointments: 0,
@@ -59,53 +61,53 @@ export default function DashboardPage() {
     }, []);
 
     if (loading) {
-        return <div className="p-8">Loading dashboard data...</div>;
+        return <div className="p-8">{t('dashboard.loadingData')}</div>;
     }
 
     return (
         <div className="space-y-6">
-            <h1 className="text-3xl font-bold tracking-tight">Dashboard Overview</h1>
+            <h1 className="text-3xl font-bold tracking-tight">{t('dashboard.title')}</h1>
 
             {/* Stats Cards */}
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
+                        <CardTitle className="text-sm font-medium">{t('dashboard.totalRevenue')}</CardTitle>
                         <DollarSign className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
                         <div className="text-2xl font-bold">${stats.totalRevenue.toLocaleString()}</div>
-                        <p className="text-xs text-muted-foreground">Lifetime revenue</p>
+                        <p className="text-xs text-muted-foreground">{t('dashboard.lifetimeRevenue')}</p>
                     </CardContent>
                 </Card>
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">Appointments</CardTitle>
+                        <CardTitle className="text-sm font-medium">{t('dashboard.appointments')}</CardTitle>
                         <Calendar className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
                         <div className="text-2xl font-bold">{stats.totalAppointments}</div>
-                        <p className="text-xs text-muted-foreground">Total bookings</p>
+                        <p className="text-xs text-muted-foreground">{t('dashboard.totalBookings')}</p>
                     </CardContent>
                 </Card>
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">Customers</CardTitle>
+                        <CardTitle className="text-sm font-medium">{t('dashboard.customers')}</CardTitle>
                         <Users className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
                         <div className="text-2xl font-bold">{stats.totalCustomers}</div>
-                        <p className="text-xs text-muted-foreground">Registered accounts</p>
+                        <p className="text-xs text-muted-foreground">{t('dashboard.registeredAccounts')}</p>
                     </CardContent>
                 </Card>
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">Services</CardTitle>
+                        <CardTitle className="text-sm font-medium">{t('dashboard.services')}</CardTitle>
                         <Activity className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
                         <div className="text-2xl font-bold">{stats.activeServices}</div>
-                        <p className="text-xs text-muted-foreground">Available services</p>
+                        <p className="text-xs text-muted-foreground">{t('dashboard.availableServices')}</p>
                     </CardContent>
                 </Card>
             </div>
@@ -114,7 +116,7 @@ export default function DashboardPage() {
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
                 <Card className="col-span-4">
                     <CardHeader>
-                        <CardTitle>Overview</CardTitle>
+                        <CardTitle>{t('dashboard.overview')}</CardTitle>
                     </CardHeader>
                     <CardContent className="pl-2">
                         <Overview />
@@ -122,13 +124,13 @@ export default function DashboardPage() {
                 </Card>
                 <Card className="col-span-3">
                     <CardHeader>
-                        <CardTitle>Recent Sales</CardTitle>
-                        <p className="text-sm text-muted-foreground">Latest {recentSales.length} transactions.</p>
+                        <CardTitle>{t('dashboard.recentSales')}</CardTitle>
+                        <p className="text-sm text-muted-foreground">{t('dashboard.latestTransactions', { count: recentSales.length })}</p>
                     </CardHeader>
                     <CardContent>
                         <div className="space-y-8">
                             {recentSales.length === 0 ? (
-                                <p className="text-sm text-muted-foreground">No recent sales found.</p>
+                                <p className="text-sm text-muted-foreground">{t('dashboard.noRecentSales')}</p>
                             ) : (
                                 recentSales.map((payment) => (
                                     <div key={payment.id} className="flex items-center">
@@ -136,7 +138,7 @@ export default function DashboardPage() {
                                             $
                                         </div>
                                         <div className="ml-4 space-y-1">
-                                            <p className="text-sm font-medium leading-none">Payment #{payment.id}</p>
+                                            <p className="text-sm font-medium leading-none">{t('dashboard.payment')} #{payment.id}</p>
                                             <p className="text-sm text-muted-foreground">{payment.paymentMethod}</p>
                                         </div>
                                         <div className="ml-auto font-medium">+${payment.amount}</div>
